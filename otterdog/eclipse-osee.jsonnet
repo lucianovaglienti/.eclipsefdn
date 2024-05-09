@@ -20,9 +20,10 @@ orgs.newOrg('eclipse-osee') {
   ],
   _repositories+:: [
     orgs.newRepo('osee-website') {
-      allow_merge_commit: true,
+      allow_merge_commit: false,
+      allow_rebase_merge: true,
+      allow_squash_merge: true,
       allow_update_branch: false,
-      default_branch: "main",
       delete_branch_on_merge: false,
       secret_scanning: "disabled",
       secret_scanning_push_protection: "disabled",
@@ -30,6 +31,11 @@ orgs.newOrg('eclipse-osee') {
       workflows+: {
         default_workflow_permissions: "write",
       },
-    },
+      branch_protection_rules: [
+        orgs.newBranchProtectionRule('main') {
+          requires_linear_history: true,
+        },
+      ]
+    }
   ],
 }

@@ -48,6 +48,7 @@ orgs.newOrg('eclipse-osee') {
       allow_update_branch: true,
       default_branch: "main",
       delete_branch_on_merge: true,
+      gh_pages_build_type: "workflow",
       web_commit_signoff_required: false,
       branch_protection_rules: [
         orgs.newBranchProtectionRule('main') {
@@ -58,6 +59,10 @@ orgs.newOrg('eclipse-osee') {
             "eclipse-eca-validation:eclipsefdn/eca",
             "validate_osee_build_linux",
           ],
+        },
+      ],
+      environments: [
+        orgs.newEnvironment('github-pages') {
         },
       ]
     },

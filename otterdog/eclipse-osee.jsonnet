@@ -1,6 +1,6 @@
 local orgs = import 'vendor/otterdog-defaults/otterdog-defaults.libsonnet';
 
-orgs.newOrg('eclipse-osee') {
+orgs.newOrg('technology.osee', 'eclipse-osee') {
   settings+: {
     description: "",
     web_commit_signoff_required: false,

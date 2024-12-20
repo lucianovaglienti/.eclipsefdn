@@ -1,6 +1,6 @@
 local orgs = import 'vendor/otterdog-defaults/otterdog-defaults.libsonnet';
 
-orgs.newOrg('eclipse-osee') {
+orgs.newOrg('technology.osee', 'eclipse-osee') {
   settings+: {
     description: "",
     web_commit_signoff_required: false,
@@ -48,6 +48,7 @@ orgs.newOrg('eclipse-osee') {
       allow_update_branch: true,
       default_branch: "main",
       delete_branch_on_merge: true,
+      gh_pages_build_type: "workflow",
       web_commit_signoff_required: false,
       dependabot_alerts_enabled: false,
       has_discussions:true,
@@ -57,6 +58,16 @@ orgs.newOrg('eclipse-osee') {
           requires_linear_history: true,
           required_approving_review_count: 2,
           requires_conversation_resolution: true,
+          requires_strict_status_checks: true,
+          dismisses_stale_reviews: true,
+          required_status_checks : [
+            "eclipse-eca-validation:eclipsefdn/eca",
+            "validate_osee_build_linux",
+          ],
+        },
+      ],
+      environments: [
+        orgs.newEnvironment('github-pages') {
         },
       ]
     },
@@ -78,5 +89,10 @@ orgs.newOrg('eclipse-osee') {
         },
       ]
     }
+  ],
+} + {
+  # snippet added due to 'https://github.com/EclipseFdn/otterdog-configs/blob/main/blueprints/add-dot-github-repo.yml'
+  _repositories+:: [
+    orgs.newRepo('.github')
   ],
 }
